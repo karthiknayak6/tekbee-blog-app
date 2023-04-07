@@ -14,6 +14,9 @@ export default {
 			fontFamily: {
 				body: ["Popins"],
 			},
+			spacing: {
+				100: "30rem",
+			},
 		},
 	},
 	plugins: [],
