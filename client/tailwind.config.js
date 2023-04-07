@@ -2,7 +2,19 @@
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				primary: {
+					100: "#FFE3E1",
+					200: "#FFD1D1",
+					300: "#FF9494",
+				},
+				secondary: "#FFF5E4",
+			},
+			fontFamily: {
+				body: ["Popins"],
+			},
+		},
 	},
 	plugins: [],
 };
