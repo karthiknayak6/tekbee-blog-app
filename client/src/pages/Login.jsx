@@ -35,8 +35,11 @@ export default function Login() {
 						</button>
 						<p className="self-center mt-7 mb-7">
 							Don't have an account?{" "}
-							<Link to="/register" className="cursor-pointer text-primary-300">
-								register
+							<Link
+								to="/register"
+								className="cursor-pointer text-primary-300 font-bold"
+							>
+								Register
 							</Link>
 						</p>
 					</form>

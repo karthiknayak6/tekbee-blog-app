@@ -45,7 +45,10 @@ export default function Register() {
 						</button>
 						<p className="self-center mt-7 mb-7">
 							Have an account already?{" "}
-							<Link to="/login" className="cursor-pointer text-primary-300">
+							<Link
+								to="/login"
+								className="cursor-pointer text-primary-300 font-bold"
+							>
 								Login
 							</Link>
 						</p>
