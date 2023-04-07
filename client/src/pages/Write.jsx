@@ -6,7 +6,7 @@ export default function Write() {
 	console.log(value);
 	return (
 		<>
-			<div className="flex flex-col">
+			<div className="flex flex-col mt-20">
 				<div className="mt-8 w-screen flex flex-col items-center">
 					<div className="w-4/5">
 						<label htmlFor="title" className="text-xl self-start">
