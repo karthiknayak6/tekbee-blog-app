@@ -16,6 +16,8 @@ export default {
 			},
 			spacing: {
 				100: "30rem",
+				98: "26rem",
+				101: "99.2vw",
 			},
 		},
 	},
