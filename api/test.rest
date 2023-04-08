@@ -1,0 +1,31 @@
+POST http://localhost:5000/register 
+Content-Type: application/json
+
+{
+    "username" : "karthik",
+    "email" : "karthik@gmail.com",
+    "password": "karthik"
+}
+
+###
+
+POST http://localhost:5000/login 
+Content-Type: application/json
+
+{
+    "username" : "karthik",
+    "password": "karthik"
+}
+
+###
+
+GET http://localhost:5000/logout
+
+###
+
+GET http://localhost:5000/
+
+###
+
+GET http://localhost:5000/loginStatus
+

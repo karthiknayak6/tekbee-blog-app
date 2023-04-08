@@ -1,7 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
+	const [thisUser, setThisUser] = useState({
+		username: "",
+		email: "",
+		password: "",
+	});
+	const navigate = useNavigate();
+	let name, value;
+	const handleInputChange = (e) => {
+		name = e.target.name;
+		value = e.target.value;
+		setThisUser({ ...thisUser, [name]: value });
+		console.log(thisUser);
+	};
+	const handleSubmit = (e) => {
+		console.log(thisUser);
+		e.preventDefault();
+		console.log(thisUser);
+
+		fetch("http://localhost:5000/register", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ thisUser }),
+		})
+			.then((response) => {
+				// diffToast();
+				console.log(response);
+
+				navigate("/login");
+			})
+			.catch((error) => {
+				console.log(error);
+				// toast("Registration Unsucsessful");
+			});
+	};
 	return (
 		<>
 			<div className="flex justify-center items-center h-screen w-screen font-body bg-primary-100">
@@ -9,7 +46,7 @@ export default function Register() {
 					<h1 className="mb-10 text-3xl font-semibold self-center text-primary-300">
 						Register
 					</h1>
-					<form className="flex flex-col ">
+					<form onSubmit={handleSubmit} className="flex flex-col ">
 						<label className="text-md" htmlFor="username">
 							Username:
 						</label>
@@ -18,6 +55,8 @@ export default function Register() {
 							type="text"
 							name="username"
 							id="username"
+							value={thisUser.username}
+							onChange={handleInputChange}
 							required
 						/>
 						<label className="text-md" htmlFor="email">
@@ -28,6 +67,8 @@ export default function Register() {
 							type="email"
 							name="email"
 							id="email"
+							value={thisUser.email}
+							onChange={handleInputChange}
 							required
 						/>
 						<label className="text-md" htmlFor="password">
@@ -38,6 +79,8 @@ export default function Register() {
 							type="password"
 							name="password"
 							id="password"
+							value={thisUser.password}
+							onChange={handleInputChange}
 							required
 						/>
 						<button className="mt-4 py-1 w-24 text-white bg-primary-300 text-xl border border-primary-300 rounded-md self-center">

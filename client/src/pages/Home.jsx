@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import data_array from "../assets/data";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		fetch("http://localhost:5000/loginStatus", {
+			method: "GET",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				if (data === false) {
+					console.log("HEy");
+					navigate("/login");
+				}
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}, []);
 	const navigate = useNavigate();
 	const [currCategory, setCurrCategory] = React.useState("All");
 	const handleCatClick = (category) => {
@@ -23,12 +44,13 @@ export default function Home() {
 		"Front-end",
 		"More",
 	];
+
 	return (
 		<div className=" w-101 px-3 lg:px-24 mt-20">
 			<div className="bg-white rounded-md shadow-md mt-4 h-96 lg:h-96  mb-8 pt-5">
 				<div className="h-96 flex flex-col sm:flex-row items-center justify-start">
 					<img
-						className="bg-gray-300 w-5/6 h-2/6 sm:w-2/5 sm:ml-14 sm:h-2/3 lg:w-96 mb-9 self-center rounded-md shadow-md"
+						className="bg-gray-300 w-5/6 h-2/6 sm:w-2/5 sm:ml-14 sm:h-2/3 lg:w-96 mb-9 self-center rounded-md shadow-md hover:scale-95 hover:transition"
 						src="https://images.unsplash.com/photo-1600783245777-080fd7ff9253?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
 					/>
 					<div className="px-6 sm:px-4 sm:w-3/5 lg:pl-20 lg:pr-24">
@@ -79,12 +101,16 @@ export default function Home() {
 				<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 ">
 					{data_array.map((data) => {
 						return (
-							<div className="h-98 lg:h-100 rounded-md shadow-md bg-white w-full flex flex-col justify-center items-center sm:pt-2 sm:h-96 mt-4">
+							<div
+								key={uuidv4()}
+								className="h-98 lg:h-100 rounded-md shadow-md bg-white w-full flex flex-col justify-center items-center sm:pt-2 sm:h-96 mt-4"
+							>
 								{/* Image card */}
 
 								<img
 									src={data.image}
-									className="bg-gray-300 w-5/6 h-1/3 lg:h-56 rounded-md shadow-md object-cover max-h-fit"
+									className="bg-gray-300 w-5/6 h-1/3 lg:h-56 rounded-md shadow-md object-cover max-h-fit hover:scale-95 hover:transition hover:shadow-primary-200 hover:shadow-lg  "
+									onClick={() => handlePostClick(data.id)}
 								/>
 
 								{/* For all text content */}

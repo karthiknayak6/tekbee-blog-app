@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { v4 as uuidv4 } from "uuid";
@@ -15,6 +15,9 @@ export default function Write() {
 		"Front-end",
 		"More",
 	];
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	return (
 		<>
@@ -60,13 +63,16 @@ export default function Write() {
 						/>
 					</div>
 				</div>
-				<div className="flex mt-8 w-screen items-center h-screen flex-col">
+				<div
+					className="flex mt-8 w-screen items-center h-screen flex-col"
+					id="editor"
+				>
 					<div className="w-4/5">
 						<p className="text-xl self-start mb-2">Body:</p>
 						<ReactQuill theme="snow" value={value} onChange={setValue} />
 					</div>
 					<div>
-						<button className="mt-8 py-1 w-24 text-white bg-primary-300 text-xl border border-primary-300 rounded-md self-center">
+						<button className="hover:bg-white hover:text-primary-300 mt-8 py-1 w-24 text-white bg-primary-300 text-xl border border-primary-300 rounded-md self-center">
 							Post
 						</button>
 					</div>

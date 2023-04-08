@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import data_array from "../assets/data";
 
 export default function Single() {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	let { postId } = useParams();
 	const data = data_array[postId - 1];
 	console.log(postId);

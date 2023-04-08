@@ -1,7 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, json, useNavigate } from "react-router-dom";
 
 export default function Login() {
+	const navigate = useNavigate();
+	const [thisUser, setThisUser] = useState({
+		username: "",
+		password: "",
+	});
+	let name, value;
+	const handleInputChange = (e) => {
+		console.log(e);
+		name = e.target.name;
+		value = e.target.value;
+		setThisUser({ ...thisUser, [name]: value });
+	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const username = thisUser.username;
+		const password = thisUser.password;
+
+		fetch("http://localhost:5000/login", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ username, password }),
+		})
+			.then((response) => {
+				console.log(response);
+				if (response.status == 200) {
+					navigate("/");
+				} else {
+					console.log("User Not Found");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 	return (
 		<>
 			<div className="flex justify-center items-center h-screen w-screen font-body bg-primary-100">
@@ -9,7 +46,7 @@ export default function Login() {
 					<h1 className="mb-10 text-3xl font-semibold self-center text-primary-300">
 						Login
 					</h1>
-					<form className="flex flex-col ">
+					<form onSubmit={handleSubmit} className="flex flex-col ">
 						<label className="text-md" htmlFor="username">
 							Username:
 						</label>
@@ -18,6 +55,8 @@ export default function Login() {
 							type="text"
 							name="username"
 							id="username"
+							value={thisUser.username}
+							onChange={handleInputChange}
 							required
 						/>
 						<label className="text-md" htmlFor="password">
@@ -28,6 +67,8 @@ export default function Login() {
 							type="password"
 							name="password"
 							id="password"
+							value={thisUser.password}
+							onChange={handleInputChange}
 							required
 						/>
 						<button className="mt-4 py-1 w-24 text-white bg-primary-300 text-xl border border-primary-300 rounded-md self-center">
