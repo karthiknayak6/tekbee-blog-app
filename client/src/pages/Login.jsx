@@ -3,16 +3,11 @@ import { Link, json, useNavigate } from "react-router-dom";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const [thisUser, setThisUser] = useState({
-		username: "",
-		password: "",
-	});
-	let name, value;
+	const [thisUser, setThisUser] = useState({});
+
 	const handleInputChange = (e) => {
 		console.log(e);
-		name = e.target.name;
-		value = e.target.value;
-		setThisUser({ ...thisUser, [name]: value });
+		setThisUser({ ...thisUser, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -55,7 +50,6 @@ export default function Login() {
 							type="text"
 							name="username"
 							id="username"
-							value={thisUser.username}
 							onChange={handleInputChange}
 							required
 						/>
@@ -67,11 +61,10 @@ export default function Login() {
 							type="password"
 							name="password"
 							id="password"
-							value={thisUser.password}
 							onChange={handleInputChange}
 							required
 						/>
-						<button className="mt-4 py-1 w-24 text-white bg-primary-300 text-xl border border-primary-300 rounded-md self-center">
+						<button className="mt-4 py-1 w-24 text-white bg-primary-300 text-lg border border-primary-300 rounded-md self-center hover:text-primary-300 hover:bg-white hover:shadow-sm font-bold ">
 							Login
 						</button>
 						<p className="self-center mt-7 mb-7">

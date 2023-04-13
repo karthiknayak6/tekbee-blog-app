@@ -4,6 +4,8 @@ import "react-quill/dist/quill.snow.css";
 import { v4 as uuidv4 } from "uuid";
 export default function Write() {
 	const [value, setValue] = useState("");
+	const [title, setTitle] = useState({ title: "" });
+	const [tags, setTags] = useState([]);
 	console.log(value);
 	const categories = [
 		"Web Development",
@@ -13,15 +15,45 @@ export default function Write() {
 		"Machine Learning",
 		"Back-end",
 		"Front-end",
-		"More",
 	];
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
+	const handleChange = (e) => {
+		setTitle({ title: e.target.value });
+		console.log("HC title: ", title);
+	};
+
+	const handleTags = (e) => {
+		const { value, checked } = e.target;
+
+		console.log(`${value} is ${checked}`);
+
+		// Case 1 : The user checks the box
+		if (checked) {
+			console.log(e.target.checked);
+			setTags([...tags, value]);
+		}
+
+		// Case 2  : The user unchecks the box
+		else {
+			setTags(tags.filter((tag) => tag !== value));
+		}
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("--------------------------------------------------------");
+		console.log(tags);
+		console.log(title);
+		console.log(value);
+		console.log("--------------------------------------------------------");
+	};
+
 	return (
 		<>
-			<div className="flex flex-col mt-20">
+			<form onSubmit={handleSubmit} className="flex flex-col mt-20">
 				<div className="mt-8 w-screen flex flex-col items-center">
 					<div className="w-4/5">
 						<label htmlFor="title" className="text-xl self-start">
@@ -31,6 +63,8 @@ export default function Write() {
 							className="rounded-md h-10 shadow-sm border mt-2 w-full"
 							type="text"
 							id="title"
+							name="title"
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -41,7 +75,14 @@ export default function Write() {
 							{categories.map((category) => {
 								return (
 									<li key={uuidv4()}>
-										<input type="checkbox" id={category} />
+										<input
+											type="checkbox"
+											id={category}
+											name={category}
+											value={category}
+											checked={tags.find((tag) => tag === category)}
+											onChange={handleTags}
+										/>
 										<label className="ml-2 cursor-pointer" htmlFor={category}>
 											{category}
 										</label>
@@ -77,7 +118,7 @@ export default function Write() {
 						</button>
 					</div>
 				</div>
-			</div>
+			</form>
 		</>
 	);
 }

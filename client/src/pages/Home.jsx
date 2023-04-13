@@ -47,7 +47,7 @@ export default function Home() {
 
 	return (
 		<div className=" w-101 px-3 lg:px-24 mt-20">
-			<div className="bg-white rounded-md shadow-md mt-4 h-96 lg:h-96  mb-8 pt-5">
+			<div className="bg-white rounded-xl shadow-md mt-4 h-96 lg:h-96  mb-8 pt-5">
 				<div className="h-96 flex flex-col sm:flex-row items-center justify-start">
 					<img
 						className="bg-gray-300 w-5/6 h-2/6 sm:w-2/5 sm:ml-14 sm:h-2/3 lg:w-96 mb-9 self-center rounded-md shadow-md hover:scale-95 hover:transition"
@@ -103,13 +103,13 @@ export default function Home() {
 						return (
 							<div
 								key={uuidv4()}
-								className="h-98 lg:h-100 rounded-md shadow-md bg-white w-full flex flex-col justify-center items-center sm:pt-2 sm:h-96 mt-4"
+								className="h-98 lg:h-100 rounded-md shadow-md bg-white w-full flex flex-col justify-center items-center sm:pt-2 sm:h-96 mt-1"
 							>
 								{/* Image card */}
 
 								<img
 									src={data.image}
-									className="bg-gray-300 w-5/6 h-1/3 lg:h-56 rounded-md shadow-md object-cover max-h-fit hover:scale-95 hover:transition hover:shadow-primary-200 hover:shadow-lg  "
+									className="bg-gray-300 w-5/6 h-1/3 lg:h-56 rounded-md shadow-md object-cover max-h-fit hover:scale-95 hover:transition hover:shadow-primary-200 hover:shadow-lg  cursor-pointer"
 									onClick={() => handlePostClick(data.id)}
 								/>
 
@@ -121,7 +121,7 @@ export default function Home() {
 									>
 										{window.innerWidth < 1000
 											? data.title.slice(0, 54) + "..."
-											: data.title.slice(0, 90)}
+											: data.title.slice(0, 90) + "..."}
 									</h1>
 									<p className=" sm:block mt-3">
 										{data.body.slice(0, 90) + "....."}

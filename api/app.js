@@ -71,17 +71,6 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
 	console.log("Database connected");
 });
-//Routes
-
-// app.get("/", (req, res) => {
-// 	console.log("User is currently logged in: " + req.user);
-// 	res.send("User is currently logged in: " + req.user);
-// });
-
-// app.get("/loginStatus", (req, res) => {
-// 	console.log(req.isAuthenticated());
-// 	res.send(req.isAuthenticated());
-// });
 
 app.listen(5000, () => {
 	console.log("Server is running on port 5000");

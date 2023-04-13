@@ -2,24 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
-	const [thisUser, setThisUser] = useState({
-		username: "",
-		email: "",
-		password: "",
-	});
+	const [thisUser, setThisUser] = useState({});
 	const navigate = useNavigate();
-	let name, value;
 	const handleInputChange = (e) => {
-		name = e.target.name;
-		value = e.target.value;
-		setThisUser({ ...thisUser, [name]: value });
-		console.log(thisUser);
+		setThisUser({ ...thisUser, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = (e) => {
-		console.log(thisUser);
 		e.preventDefault();
-		console.log(thisUser);
-
 		fetch("http://localhost:5000/register", {
 			method: "POST",
 			credentials: "include",
@@ -29,14 +18,12 @@ export default function Register() {
 			body: JSON.stringify({ thisUser }),
 		})
 			.then((response) => {
-				// diffToast();
 				console.log(response);
 
 				navigate("/login");
 			})
 			.catch((error) => {
 				console.log(error);
-				// toast("Registration Unsucsessful");
 			});
 	};
 	return (
@@ -55,7 +42,6 @@ export default function Register() {
 							type="text"
 							name="username"
 							id="username"
-							value={thisUser.username}
 							onChange={handleInputChange}
 							required
 						/>
@@ -67,7 +53,6 @@ export default function Register() {
 							type="email"
 							name="email"
 							id="email"
-							value={thisUser.email}
 							onChange={handleInputChange}
 							required
 						/>
@@ -79,7 +64,6 @@ export default function Register() {
 							type="password"
 							name="password"
 							id="password"
-							value={thisUser.password}
 							onChange={handleInputChange}
 							required
 						/>
