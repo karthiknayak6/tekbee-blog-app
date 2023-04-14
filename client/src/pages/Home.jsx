@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import data_array from "../assets/data";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+	const allPosts = data_array;
+	const [posts, setPosts] = useState(data_array);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		fetch("http://localhost:5000/loginStatus", {
@@ -29,6 +31,14 @@ export default function Home() {
 	const [currCategory, setCurrCategory] = React.useState("All");
 	const handleCatClick = (category) => {
 		setCurrCategory(category);
+		if (category === "All") {
+			console.log(allPosts);
+			setPosts(allPosts);
+		} else {
+			setPosts(
+				data_array.filter((post) => post.tags.includes(category) === true)
+			);
+		}
 	};
 	const handlePostClick = (PostId) => {
 		navigate("/post/" + PostId);
@@ -99,7 +109,7 @@ export default function Home() {
 				</div>
 				{/* For boxes */}
 				<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 ">
-					{data_array.map((data) => {
+					{posts.map((data) => {
 						return (
 							<div
 								key={uuidv4()}
@@ -126,10 +136,16 @@ export default function Home() {
 									<p className=" sm:block mt-3">
 										{data.body.slice(0, 90) + "....."}
 									</p>
-									<span className="self-left text-gray-600 font-bold mt-5 relative top-3">
-										Posted by:{" "}
-										<span className="cursor-pointer text-primary-300">
+									<span className=" flex self-left text-gray-600 font-bold mt-5 relative top-3 text-sm md:text-md">
+										Author:{" "}
+										<span className="ml-1 cursor-pointer text-primary-300">
 											{data.author}
+										</span>
+										<span className="ml-12 block">
+											Tags:{" "}
+											<span className=" text-primary-300">
+												{data.tags ? data.tags.join(", ") : ""}
+											</span>
 										</span>
 									</span>
 								</div>
