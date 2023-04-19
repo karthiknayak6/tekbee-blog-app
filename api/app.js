@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local");
 const { isLogged } = require("./middlewares/auth_middleware");
 const userRoutes = require("./routes/user");
 const bodyParser = require("body-parser");
+console.log("test");
 
 const jsonParser = bodyParser.json();
 
