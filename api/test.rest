@@ -29,3 +29,13 @@ GET http://localhost:5000/
 
 GET http://localhost:5000/loginStatus
 
+###
+POST http://localhost:5000/posts/new
+Content-Type: application/json
+
+{
+    "title" : {"title": "hello"},
+    "body" : "This is my first post",
+    "tags" : ["first", "post"]
+}
+###

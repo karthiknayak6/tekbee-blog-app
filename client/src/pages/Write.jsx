@@ -44,11 +44,27 @@ export default function Write() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const body = value;
+		fetch("http://localhost:5000/posts/new", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ title, tags, body }),
+		})
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
 		console.log("--------------------------------------------------------");
-		console.log(tags);
-		console.log(title);
-		console.log(value);
-		console.log("--------------------------------------------------------");
+		console.log(tags); //array
+		console.log(title); //object
+		console.log(value); //p tag
+		("--------------------------------------------------------");
 	};
 
 	return (

@@ -6,6 +6,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const { isLogged } = require("./middlewares/auth_middleware");
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 const bodyParser = require("body-parser");
 console.log("test");
 
@@ -18,9 +19,19 @@ const app = express();
 app.use(
 	cors({
 		origin: "http://localhost:5173",
+		methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
 		credentials: true,
 	})
 );
+// app.use((req, res, next) => {
+// 	res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+// 	res.header(
+// 		"Access-Control-Allow-Headers",
+// 		"Origin, X-Requested-With, Content-Type, Accept"
+// 	);
+// 	res.header("Access-Control-Allow-Credentials", true);
+// 	next();
+// });
 
 const User = require("./models/user");
 
@@ -58,6 +69,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use("/posts", postRoutes);
 app.use("/", userRoutes);
 
 mongoose.set("strictQuery", false);
