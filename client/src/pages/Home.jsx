@@ -19,7 +19,6 @@ export default function Home() {
 			.then((data) => {
 				console.log(data);
 				if (data === false) {
-					console.log("HEy");
 					navigate("/login");
 				}
 			})
